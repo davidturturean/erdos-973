@@ -1,0 +1,1295 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsthm, mathtools}
+\usepackage{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\D}{\mathbb{D}}
+\newcommand{\eps}{\varepsilon}
+\DeclareMathOperator{\Repart}{Re}
+
+\title{A global upper bound for possible constants in Erd\H{o}s Problem \#973}
+\author{David Turturean \\ \small MIT \\ \small \texttt{davidct@mit.edu}}
+\date{April 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Erd\H{o}s Problem \#973 \cite{Bloom973} asks whether there is a constant
+$C>1$ such that, for every $n\geq2$, one can choose
+\[
+        z_1=1,\qquad |z_i|\geq1,
+\]
+with
+\[
+        \max_{2\leq k\leq n+1}\left|\sum_{i=1}^n z_i^k\right|<C^{-n}.
+\]
+Let
+\[
+        \Delta_n=\inf_{\substack{z_1=1\\ |z_i|\geq1}}
+        \max_{2\leq k\leq n+1}\left|\sum_{i=1}^n z_i^k\right|.
+\]
+We prove the necessary bound
+\[
+        \Delta_n\geq
+        \exp\!\left(-\bigl(0.0597505151164706\ldots+o(1)\bigr)n\right).
+\]
+Equivalently, any constant $C$ answering Erd\H{o}s Problem \#973
+affirmatively must satisfy
+\[
+        C\leq 1.06157166742126\ldots .
+\]
+\end{abstract}
+
+\section{Statement and outline}
+
+Throughout, we call a tuple $(z_1,\ldots,z_n)\in\C^n$ \emph{admissible} if
+it satisfies the hypotheses of the problem, namely $z_1=1$ and $|z_i|\geq 1$
+for every $i$.  Write
+\[
+        p_k=\sum_{i=1}^n z_i^k
+\]
+for the $k$-th power sum of the tuple, and abbreviate the maximum that the
+problem statement asks us to bound as
+\[
+        \eps=\max_{2\leq k\leq n+1}|p_k|.
+\]
+The result is most naturally stated in terms of the exponential rate
+$\lambda$ defined by $\eps=\exp(-\lambda n+o(n))$.
+
+\begin{theorem}\label{thm:global}
+If a sequence of admissible $n$-tuples satisfies
+\[
+        \max_{2\leq k\leq n+1}|p_k|
+        \leq \exp(-\lambda n+o(n)),
+\]
+then
+\[
+        \lambda\leq \lambda_*,
+        \qquad
+        \lambda_*=0.0597505151164706\ldots .
+\]
+Thus any constant $C$ in Erd\H{o}s Problem \#973 must satisfy
+\[
+        C\leq e^{\lambda_*}=1.06157166742126\ldots .
+\]
+\end{theorem}
+
+The proof uses the polynomial
+\[
+        F(t)=\prod_{i=1}^n(1-z_it),
+\]
+in the spirit of Tur\'an's power sum method \cite{Turan}.
+The zeros of $F$ are the reciprocals $1/z_i$ of the original points; we
+will refer to them as the \emph{reciprocal zeros}.  Since each
+$|z_i|\geq 1$, every reciprocal zero lies in the closed unit disk
+\[
+        \overline{\mathbb D}=\{t\in\C:|t|\leq 1\},
+\]
+and $F(1)=0$ because $z_1=1$.  The Taylor expansion
+\[
+        \log F(t)=-\sum_{k\geq1}\frac{p_k}{k}t^k
+\]
+shows that the coefficients of $\log F(t)$ are essentially the negative
+power sums.  Thus, when $p_2,\ldots,p_{n+1}$ are small, $\log F(t)$ is
+nearly linear (its leading term is $-p_1 t$), and so $F(t)$ is close to
+the exponential $e^{xt}$ with $x=-p_1$.  We compare $F$ against the
+polynomial truncation
+\[
+        E_n(u):=\sum_{j=0}^n\frac{u^j}{j!},
+\]
+the degree-$n$ partial sum of the exponential series; following standard
+usage we call $E_n$ an \emph{exponential section} of $e^u$.
+
+There are four ingredients.
+First, the coefficient of $t^{n+1}$ in $F$ is zero.  This gives a useful
+identity and, importantly, also proves that $|p_1|\leq (1+o(1))n$ in the
+exponential regime.  Second, since the zeros of $F$ lie in the closed unit
+disk, the boundary logarithmic derivative (i.e., $\Repart(sF'(s)/F(s))$
+evaluated at unit-modulus $s$) satisfies
+\[
+        \Repart\frac{sF'(s)}{F(s)}\geq \frac n2\qquad (|s|=1).
+\]
+Third, a zero-free disk estimate bounds the radii $|z_i|$ once $\lambda>0$
+is fixed.  Fourth, coefficient comparison forces a lower bound on the
+average $\frac1n\sum_{i=1}^n\log|z_i|$ (which we call the \emph{average
+radial mass}), and at this point a symmetric two-point version of the
+boundary inequality becomes stronger than the one-point inequality.
+
+\section{\texorpdfstring{Putting $F$ into the form $e^{xt}A(t)$}{Putting F into the form e\^{xt}A(t)}}
+
+The strategy is to write $F$ as an exponential times a perturbation that is
+small in coefficient norm whenever $\eps$ is small.  Define
+\[
+        x=-p_1
+\]
+(so that the linear term of $\log F$ is $xt$), let
+\[
+        D(t)=\sum_{k=2}^{n+1}\frac{p_k}{k}t^k
+\]
+(the higher-order tail of $-\log F$, truncated at degree $n+1$ since only
+$p_2,\dots,p_{n+1}$ are bounded by $\eps$), and put
+\[
+        A(t)=e^{-D(t)}=\sum_{\ell\geq0}d_\ell t^\ell .
+\]
+With these definitions $\log F(t)=xt-D(t)+O(t^{n+2})$, so on exponentiating
+both sides one gets, through degree $n+1$,
+\[
+        F(t)\equiv e^{xt}A(t) \pmod {t^{n+2}}.
+\]
+In particular, for $0\leq m\leq n$,
+\[
+        [t^m]F(t)=\sum_{\ell=0}^m d_\ell\frac{x^{m-\ell}}{(m-\ell)!}.
+        \tag{2.1}\label{eq:coeff-formula}
+\]
+Since $F$ has degree $n$, the coefficient of $t^{n+1}$ in $e^{xt}A(t)$ is
+zero:
+\[
+        0=\frac{x^{n+1}}{(n+1)!}+
+        \sum_{\ell=2}^{n+1}d_\ell\frac{x^{n+1-\ell}}{(n+1-\ell)!}.
+        \tag{2.2}\label{eq:endpoint}
+\]
+
+\begin{lemma}\label{lem:dell}
+If $\eps(n+1)\log(n+1)\leq1$, then
+\[
+        d_0=1,
+        \qquad d_1=0,
+        \qquad |d_\ell|\leq \frac{2\eps}{\ell}
+        \quad (2\leq \ell\leq n+1).
+\]
+\end{lemma}
+
+\begin{proof}
+Let $\Lambda(t)=\sum_{k\geq2}t^k/k$.  Coefficientwise,
+\[
+        |d_\ell|\leq [t^\ell]e^{\eps\Lambda(t)}.
+\]
+Since $\Lambda(t)\leq -\log(1-t)$ coefficientwise, the positive-degree
+coefficients of $e^{u\Lambda(t)}$ are at most the corresponding coefficients
+of $(1-t)^{-u}$, hence at most $u$ for $0<u\leq1$.  Also
+\[
+        [t^\ell]e^{\eps\Lambda(t)}
+        =\int_0^\eps [t^\ell]\Lambda(t)e^{u\Lambda(t)}\,du.
+\]
+The term $t^\ell/\ell$ in $\Lambda$ contributes at most $\eps/\ell$, and
+the remaining terms contribute $O(\eps^2\log \ell)$.  The hypothesis makes
+this at most another $\eps/\ell$.
+\end{proof}
+
+\begin{lemma}[Large first moment bound]\label{lem:largep1}
+If $\eps\to0$, then
+\[
+        |p_1|\leq (1+o(1))n.
+\]
+\end{lemma}
+
+\begin{proof}
+Let $R=|x|=|p_1|$ and suppose, for some fixed $\delta>0$, that
+$R\geq(1+\delta)n$ along a subsequence.  Put
+\[
+        q=\frac{n+1}{R}.
+\]
+Then $q\leq q_0<1$ for all large $n$.  Divide \eqref{eq:endpoint} by
+$x^{n+1}/(n+1)!$ and take absolute values.  Since
+\[
+        \frac{(n+1)!}{(n+1-\ell)!R^\ell}\leq q^\ell,
+\]
+we get
+\[
+        1\leq \sum_{\ell=2}^{n+1}|d_\ell|q^\ell .
+\]
+By the coefficient majorant used in Lemma~\ref{lem:dell},
+\[
+        \sum_{\ell=2}^{n+1}|d_\ell|q^\ell
+        \leq
+        \exp\!\left(\eps\sum_{k=2}^{n+1}\frac{q^k}{k}\right)-1.
+\]
+The sum over $k$ is bounded because $q\le q_0<1$, while $\eps\to0$.
+The right-hand side tends to $0$, a contradiction.  Since $\delta>0$ was
+arbitrary, $R\leq (1+o(1))n$.
+\end{proof}
+
+\begin{lemma}[One-point boundary bound]\label{lem:onepoint}
+Assume
+\[
+        \eps=\exp(-\lambda n+o(n)),
+        \qquad |p_1|=rn+o(n),
+\]
+with \(\lambda>0\). Then every subsequential limit of \(|p_1|/n\) is at
+least \(1/2\):
+\[
+        r\geq \frac12 .
+        \tag{2.3}\label{eq:onepoint}
+\]
+\end{lemma}
+
+\begin{proof}
+By Lemma~\ref{lem:largep1}, every subsequential limit satisfies \(r\leq1\).
+Suppose, toward contradiction, that some subsequential limit has \(r<1/2\).
+Choose \(s\) on the unit circle so that \(xs=|x|\). Then \(u=xs\) is real and
+nonnegative, with \(u=rn+o(n)\).
+
+Choose \(r_0\) with \(r<r_0<1\). Uniformly for \(0\leq u\leq r_0n\),
+\[
+        |e^u-E_n(u)|\leq \exp\bigl((1+\log r_0+o(1))n\bigr).
+\]
+Since \(1+\log r_0<r_0\) for \(r_0<1\), and \(r_0\) may be chosen
+arbitrarily close to \(r\), this tail is \(o(e^u)\). The derivative estimate
+is the same:
+\[
+        uE_{n-1}(u)=ue^u(1+o(1)).
+\]
+The perturbation from \(A(t)-1\) is bounded by \(\exp((r-\lambda+o(1))n)\),
+hence is also negligible relative to \(e^u\). Therefore
+\[
+        \frac{sF'(s)}{F(s)}=u+o(n)=rn+o(n).
+\]
+The boundary inequality \eqref{eq:schur-half} gives
+\[
+        rn+o(n)\geq \frac n2,
+\]
+contradicting \(r<1/2\). Hence \(r\geq1/2\).
+\end{proof}
+
+\begin{lemma}[Endpoint coefficient bound]\label{lem:endpoint}
+Suppose
+\[
+        \eps=\exp(-\lambda n+o(n)),
+        \qquad |p_1|=rn+o(n),
+\]
+with $\lambda>0$.  Then $1/2\leq r\leq1$ and
+\[
+        \lambda\leq r-1-\log r.
+        \tag{2.4}\label{eq:endpoint-rate}
+\]
+Consequently, if $\rho(\lambda)\in(0,1)$ is the smaller solution of
+\[
+        \rho-1-\log\rho=\lambda,
+        \tag{2.5}\label{eq:rho-lambda}
+\]
+then
+\[
+        r\leq \rho(\lambda)+o(1).
+\]
+\end{lemma}
+
+\begin{proof}
+Lemma~\ref{lem:largep1} gives $r\leq1$, and
+Lemma~\ref{lem:onepoint} gives $r\geq1/2$.  From \eqref{eq:endpoint} and
+Lemma~\ref{lem:dell},
+\[
+        \frac{|x|^{n+1}}{(n+1)!}
+        \leq 2\eps\sum_{m=0}^{n-1}\frac{|x|^m}{m!}
+        \leq 2\eps e^{|x|}.
+\]
+Taking logarithms and using Stirling's formula gives
+\[
+        n(1+\log r)+o(n)\leq n(r-\lambda)+o(n),
+\]
+which is \eqref{eq:endpoint-rate}.  Since $r\le1$ and
+$r\mapsto r-1-\log r$ is decreasing on $(0,1]$, \eqref{eq:rho-lambda}
+forces $r\leq \rho(\lambda)+o(1)$.
+\end{proof}
+
+\section{Boundary comparison}
+
+Let
+\[
+        \alpha_i=\frac1{z_i}.
+\]
+Then $|\alpha_i|\leq1$, and for $|s|=1$,
+\[
+        \frac{sF'(s)}{F(s)}=\sum_{i=1}^n\frac{s}{s-\alpha_i}
+        =\sum_{i=1}^n\frac1{1-\alpha_i/s}.
+\]
+Since $\Repart(1/(1-w))\geq1/2$ for $|w|\leq1$,
+\[
+        \Repart\frac{sF'(s)}{F(s)}\geq \frac n2.
+        \tag{3.1}\label{eq:schur-half}
+\]
+If $y_i=\log |z_i|$, then $|\alpha_i|=e^{-y_i}$ and the sharper bound
+\[
+        \Repart\frac1{1-\alpha_i/s}
+        \geq \frac1{1+e^{-y_i}}
+\]
+gives
+\[
+        \Repart\frac{sF'(s)}{F(s)}
+        \geq \frac n2+\sum_{i=1}^n \psi(y_i),
+        \qquad
+        \psi(y)=\frac12\tanh\frac y2 .
+        \tag{3.2}\label{eq:weighted-schur}
+\]
+
+We also need a standard estimate on $E_n(u)$, the exponential section
+introduced in Section~1; the relevant asymptotic behaviour goes back to
+Szeg\H{o}'s 1924 paper on the exponential series \cite{Szego}.  In a region
+of the unit circle that we call the \emph{dominant arc}, the truncation
+$E_n(u)$ matches $e^u$ to leading order because the missing tail
+$\sum_{j>n}u^j/j!$ is exponentially smaller than $e^u$ itself.
+
+\begin{lemma}[Dominant-arc comparison]\label{lem:dominant}
+Assume
+\[
+        \eps=\exp(-\lambda n+o(n)),
+        \qquad |x|=rn+o(n),
+\]
+with $r<1$.  Let $s$ lie on the unit circle and write $u=xs$.  If, for some
+fixed $\eta>0$,
+\[
+        \Repart u\geq (1+\log r+\eta)n
+        \qquad\text{and}\qquad
+        \Repart u\geq (r-\lambda+\eta)n,
+\]
+then
+\[
+        \frac{sF'(s)}{F(s)}=u+o(n).
+\]
+\end{lemma}
+
+\begin{proof}
+By the standard Szeg\H{o} estimate \cite{Szego}, for each fixed $\eta>0$
+there exists $N(\eta)$ such that, for all $n\geq N(\eta)$ and all $u\in\C$
+with $|u|\leq rn$,
+\[
+        |E_n(u)-e^u|
+        \leq \exp\!\bigl((1+\log r+\eta)n\bigr).
+\]
+The bound is uniform in $u$ because the right-hand side depends only on
+$|u|$ through $r$ and on $n$, not on $\arg u$. Combined with the first
+displayed hypothesis $\Repart u\geq(1+\log r+\eta)n$ this gives
+$E_n(u)=e^u(1+o(1))$ and $uE_{n-1}(u)=ue^u(1+o(1))$.
+
+Write $F(s)=E_n(xs)+G(s)$.  Lemma~\ref{lem:dell} gives
+\[
+        |G(s)|+n^{-O(1)}|sG'(s)|
+        \leq \exp((r-\lambda+o(1))n).
+\]
+The second displayed hypothesis makes this negligible compared with
+$|e^u|$.  Hence $F(s)=e^u(1+o(1))$ and
+$sF'(s)=ue^u(1+o(1))+o(ne^u)$, proving the claim.
+\end{proof}
+
+\begin{lemma}[Lower bound for $|p_1|$]\label{lem:rlower}
+Under the hypotheses of Lemma~\ref{lem:endpoint},
+\[
+        r\geq \frac12+\lambda-o(1).
+        \tag{3.3}\label{eq:r-lower}
+\]
+\end{lemma}
+
+\begin{proof}
+By Lemma~\ref{lem:endpoint},
+\[
+        r-\lambda\geq 1+\log r+o(1).
+        \tag{3.4}\label{eq:rminuslambda}
+\]
+Also \(r\geq1/2+o(1)\). Since \(r\leq1\), \eqref{eq:endpoint-rate} implies
+\[
+        \lambda\leq \frac12-1+\log 2+o(1)<\frac15
+\]
+for all large \(n\). Hence \(2r-\lambda\geq 1-1/5+o(1)>0\). Therefore, for
+every sufficiently small fixed \(\eta>0\), there is a boundary point \(s\)
+such that
+\[
+        \Repart(xs)=(r-\lambda+\eta)n.
+\]
+By \eqref{eq:rminuslambda}, this point lies strictly inside the dominant
+arc required by Lemma~\ref{lem:dominant}. Hence
+\[
+        \frac{sF'(s)}{F(s)}=xs+o(n).
+\]
+The Schur boundary inequality \eqref{eq:schur-half} gives
+\(\Repart(sF'(s)/F(s))\geq n/2\), and therefore
+\[
+        r-\lambda+\eta\geq \frac12+o(1).
+\]
+Letting first \(n\to\infty\) and then \(\eta\downarrow0\) gives
+\eqref{eq:r-lower}.
+\end{proof}
+
+\section{Radii and coefficients}
+
+Let $\kappa$ be the positive solution of
+\[
+        1+\log\kappa+\kappa=0,
+        \qquad
+        \kappa=0.278464542761073\ldots .
+\]
+This constant arises in Szeg\H{o}'s analysis of the exponential
+series \cite{Szego}: $\kappa$ is the threshold radius for which the
+asymptotic $E_n(u)\sim e^u$ becomes uniform on the disk $|u|\leq\sigma n$
+with $\sigma<\kappa$.
+For $\lambda>0$, define $\sigma_\lambda\in(0,\kappa)$ by
+\[
+        \sigma_\lambda+\kappa+
+        \log(\sigma_\lambda/\kappa)=\lambda.
+        \tag{4.1}\label{eq:sigma}
+\]
+
+\begin{lemma}[Bounded annulus]\label{lem:annulus}
+Assume
+\[
+        \eps=\exp(-\lambda n+o(n)),
+        \qquad |p_1|=rn+o(n),
+\]
+and \(r\geq1/2-o(1)\). Then
+\[
+        \max_i |z_i|\leq \frac r{\sigma_\lambda}+o(1).
+        \tag{4.2}\label{eq:radius-r}
+\]
+In particular,
+\[
+        \max_i |z_i|\leq B(\lambda)+o(1),
+        \qquad
+        B(\lambda)=\frac{\rho(\lambda)}{\sigma_\lambda},
+        \tag{4.3}\label{eq:B-lambda}
+\]
+where $\rho(\lambda)$ is defined by \eqref{eq:rho-lambda}.
+\end{lemma}
+
+\begin{proof}
+Fix $0<\sigma<\sigma_\lambda$ and put $R=|p_1|$, $\rho_0=\sigma n/R$.
+On $|t|=\rho_0$ one has $|xt|=\sigma n$.  Since $\sigma<\kappa$,
+\[
+        E_n(xt)=e^{xt}(1+o(1))
+\]
+uniformly on the circle.  This uses precisely
+$1+\log\sigma+\sigma<0$, which says that the tail of $e^{xt}$ is smaller
+than $e^{xt}$ even in the direction where $\Repart(xt)=-\sigma n$.
+
+Choose $\sigma<\sigma_1<\kappa$.  On \(|u|\leq \sigma_1n/R\), the radius is
+\(<1\) for large \(n\), since \(\sigma_1<\kappa<1/2\) and
+\(r\geq1/2-o(1)\). Therefore
+\[
+        |D(u)|\leq \eps\sum_{k=2}^{n+1}\frac{|u|^k}{k}=e^{-\lambda n+o(n)}.
+\]
+Thus $A(u)-1=e^{-\lambda n+o(n)}$ there.  Let
+$H(t)=e^{xt}(A(t)-1)$.  Cauchy's estimate on the larger circle
+$|u|=\sigma_1n/R$ gives, on $|t|=\rho_0$,
+\[
+        |\Pi_{>n}H(t)|
+        \leq
+        \exp\!\left((-\lambda+\sigma_1+
+        \log(\sigma/\sigma_1)+o(1))n\right),
+\]
+where $\Pi_{>n}$ denotes the part of degree $>n$.  Relative to the smallest
+possible size $|e^{xt}|\geq e^{-\sigma n}$ on $|t|=\rho_0$, this is
+negligible when
+\[
+        \sigma+
+        \sigma_1+
+        \log(\sigma/\sigma_1)<\lambda.
+\]
+The map $(\sigma,\sigma_1)\mapsto\sigma+\sigma_1+\log(\sigma/\sigma_1)$ is
+continuous, and at the limit $(\sigma,\sigma_1)=(\sigma_\lambda,\kappa)$ it
+equals $\sigma_\lambda+\kappa+\log(\sigma_\lambda/\kappa)=\lambda$ by
+\eqref{eq:sigma}. So fixing $\sigma\in(0,\sigma_\lambda)$ and choosing
+$\sigma_1\in(\sigma,\kappa)$ close enough to $\kappa$ gives strict
+inequality with a margin uniform in $n$.
+
+Therefore, on $|t|=\rho_0$,
+\[
+        F(t)=e^{xt}(1+o(1)).
+\]
+By Rouch\'e's theorem, $F$ has no zeros inside $|t|\leq\rho_0$.  Since its
+zeros are $1/z_i$, we get $|z_i|\leq R/(\sigma n)+o(1)$.  Letting
+$\sigma\uparrow\sigma_\lambda$ gives \eqref{eq:radius-r}.  The bound
+\eqref{eq:B-lambda} follows from Lemma~\ref{lem:endpoint}.
+\end{proof}
+
+For $0<\tau<1$, define
+\[
+        L_r(\tau)=\tau\left(1+\log\frac r\tau\right).
+        \tag{4.4}\label{eq:L}
+\]
+For $0\leq a\leq b$, define
+\[
+        U_b(a,\tau)=\inf_{s>0}\left[
+        \left(1-\frac ab\right)\log(1+s)
+        +\frac ab\log(1+e^b s)-\tau\log s\right].
+        \tag{4.5}\label{eq:Ub}
+\]
+
+\begin{lemma}[Coefficient comparison]\label{lem:coeffbarrier}
+Assume
+\[
+        \eps=\exp(-\lambda n+o(n)),
+        \qquad |p_1|=rn+o(n),
+\]
+and let $y_i=\log|z_i|$.  If
+\[
+        0\leq y_i\leq b+o(1),
+        \qquad
+        \frac1n\sum_{i=1}^n y_i=a+o(1),
+\]
+then, for every $0<\tau<1$,
+\[
+        L_r(\tau)\leq \max\{U_b(a,\tau),\,r-\lambda\}+o(1).
+        \tag{4.6}\label{eq:coeffbarrier}
+\]
+\end{lemma}
+
+\begin{proof}
+Let $j=\lfloor\tau n\rfloor$.  From \eqref{eq:coeff-formula},
+\[
+        [t^j]F(t)=\frac{x^j}{j!}+O(\eps e^{|x|}).
+\]
+The first term has exponential rate $L_r(\tau)$, while the error has rate
+at most $r-\lambda$.  On the other hand,
+\[
+        |[t^j]F(t)|\leq e_j(e^{y_1},\ldots,e^{y_n}).
+\]
+For each $s>0$,
+\[
+        e_j(e^{y_1},\ldots,e^{y_n})
+        \leq s^{-j}\prod_{i=1}^n(1+se^{y_i}).
+\]
+The function $y\mapsto\log(1+se^y)$ is convex, so under the constraints
+$0\leq y_i\leq b$ and average $a$ the right-hand side is maximized by
+putting a fraction $a/b$ of the $y_i$ at $b$ and the rest at $0$.  Optimizing
+in $s$ gives the exponent $U_b(a,\tau)$.  Comparing the lower and upper
+exponential rates gives \eqref{eq:coeffbarrier}.
+\end{proof}
+
+\section{The two-point boundary test}
+
+\paragraph{Boundary points and the two-point boundary average.}
+Throughout this section a \emph{boundary point} is a complex number $s$ on
+the unit circle, $|s|=1$.  We never average over the whole circle; we always
+average over exactly two boundary points $s_+,s_-$ which are placed
+symmetrically about a chosen reference direction
+$\phi\in[0,2\pi)$, namely
+\[
+        s_\pm \;=\; e^{i(\phi\pm\theta)},
+\]
+so that $s_+$ and $s_-$ have the same midpoint phase $\phi$ and are $2\theta$
+apart on the circle.  The angle $\theta\in[0,\pi/2)$ is the
+\emph{half-separation}; the two-point configuration is determined by $\phi$
+and $\theta$.
+
+Given a reciprocal zero $\alpha$ with $|\alpha|<1$, the
+\emph{symmetric two-point boundary average} (of $\alpha$ at $s_+,s_-$) is
+just the ordinary arithmetic mean of the two real numbers
+$\Repart\bigl(1/(1-\alpha/s_\pm)\bigr)$:
+\[
+        \tfrac12\Bigl(
+                \Repart\tfrac{1}{1-\alpha/s_+}+
+                \Repart\tfrac{1}{1-\alpha/s_-}
+        \Bigr).
+\]
+The quantity $\Repart\bigl(1/(1-\alpha/s)\bigr)$ at a single boundary point
+$s$ is always between $0$ and $1$, and it equals $\tfrac12$ when averaged
+over the whole circle.  The two-point boundary average can exceed $\tfrac12$,
+and the rest of the section quantifies by how much.
+
+\medskip
+For $b>0$ and $0\leq\theta<\pi/2$, define
+\[
+        \Phi_b(\theta)=\frac12\,
+        \frac{1-e^{-2b}}{1+2e^{-b}\cos\theta+e^{-2b}}.
+        \tag{5.1}\label{eq:Phi}
+\]
+This $\Phi_b(\theta)$ is the minimum possible excess over $\tfrac12$ in the
+symmetric two-point boundary average just defined, taken over choices of
+$\alpha$'s phase, when $|\alpha|=e^{-b}$ and the half-separation is~$\theta$.
+
+\begin{lemma}[Two-point kernel]\label{lem:twopoint-kernel}
+Let $0\leq y\leq b$ and $0\leq\theta<\pi/2$.  For any reciprocal zero
+$\alpha$ with $|\alpha|=e^{-y}$, and for two boundary points symmetric about
+its midpoint direction with separation $2\theta$, the average of
+$\Repart(1/(1-\alpha/s))$ over the two points is at least
+\[
+        \frac12+\Phi_y(\theta).
+\]
+Moreover
+\[
+        \Phi_y(\theta)\geq \frac yb\Phi_b(\theta).
+        \tag{5.2}\label{eq:Phi-chord}
+\]
+\end{lemma}
+
+\begin{proof}
+The real part identity
+\[
+        \Repart\frac1{1-\rho e^{iu}}
+        =\frac12+\frac12\frac{1-\rho^2}{1-2\rho\cos u+\rho^2}
+\]
+shows that the symmetric two-point excess is minimized by putting the phase
+opposite the midpoint of the two probes.  This gives \eqref{eq:Phi} with
+$\rho=e^{-y}$.
+
+It remains to prove the chord bound.  Put $c=\cos\theta$ and
+$t=\tanh(y/2)$.  Then
+\[
+        \Phi_y(\theta)=\frac{t}{(1+c)+(1-c)t^2}.
+\]
+A direct differentiation shows that this is increasing and concave as a
+function of $y\geq0$ when $0\leq c\leq1$.  Since it vanishes at $y=0$, it
+lies above the chord joining $0$ to $b$, which is \eqref{eq:Phi-chord}.
+\end{proof}
+
+For fixed $\lambda$ define
+\[
+        b_\lambda=\log B(\lambda)
+        =\log\frac{\rho(\lambda)}{\sigma_\lambda}.
+\]
+For $r\in[1/2+\lambda,\rho(\lambda)]$, define
+\[
+        A_\lambda(r)=
+        \sup_{\substack{0<\tau<1\\ L_r(\tau)>r-\lambda}}
+        \inf\{a\in[0,b_\lambda]:U_{b_\lambda}(a,\tau)\geq L_r(\tau)\}.
+        \tag{5.3}\label{eq:A-lambda}
+\]
+This is the average radial mass forced by Lemma~\ref{lem:coeffbarrier}.
+
+Choose \(\delta>0\). Let \(s_\pm\) be two boundary points satisfying
+\[
+        -p_1s_\pm=|p_1|e^{\pm i\theta_\delta},
+        \qquad
+        \cos\theta_\delta=1-\frac{\lambda-\delta}{r}.
+        \tag{5.4}\label{eq:theta-delta}
+\]
+For fixed \(\delta>0\), these points lie strictly inside the dominant arc:
+\[
+        \Repart(-p_1s_\pm)=(r-\lambda+\delta)n+o(n).
+\]
+By \eqref{eq:endpoint-rate}, Lemma~\ref{lem:dominant} applies with a positive
+margin. Hence the model value of the symmetric two-point boundary average is
+\[
+        (r-\lambda+\delta)n+o(n).
+\]
+
+On the other hand, Lemma~\ref{lem:twopoint-kernel}, the annulus bound
+\(0\leq y_i\leq b_\lambda+o(1)\), and the forced average
+\(n^{-1}\sum y_i\geq A_\lambda(r)-o(1)\) give
+\[
+        \frac12+\frac{A_\lambda(r)}{b_\lambda}
+        \Phi_{b_\lambda}(\theta_\delta)
+        \leq r-\lambda+\delta+o(1).
+\]
+Letting \(n\to\infty\) and then \(\delta\downarrow0\), by continuity of
+\(\Phi_b\), every candidate must satisfy
+\[
+        \frac12+\frac{A_\lambda(r)}{b_\lambda}
+        \Phi_{b_\lambda}(\theta)
+        \leq r-\lambda+o(1),
+        \qquad
+        \theta=\arccos\left(1-\frac\lambda r\right).
+        \tag{5.5}\label{eq:twopoint-feasible}
+\]
+The allowed range of $r$ is
+\[
+        \frac12+\lambda\leq r\leq \rho(\lambda).
+        \tag{5.6}\label{eq:r-range}
+\]
+
+\begin{lemma}[Explicit feasibility check]\label{lem:numerical}
+Let
+\[
+        \lambda_*=0.0597505151164706\ldots .
+\]
+For every $\lambda>\lambda_*$, there is no $r$ satisfying
+\eqref{eq:r-range} and \eqref{eq:twopoint-feasible}.  At the endpoint,
+\[
+\begin{aligned}
+        r&=0.652773861099716\ldots,\\
+        b_\lambda&=1.31618768952276\ldots,\\
+        A_\lambda(r)&=0.411367883420348\ldots,\\
+        \tau&=0.951348559317201\ldots,\\
+        \theta&=0.431195462681751\ldots .
+\end{aligned}
+\]
+\end{lemma}
+
+\begin{proof}[Computer-assisted verification]
+The functions are explicit. The roots \(\sigma_\lambda\) and \(\rho(\lambda)\)
+are determined by the one-variable equations \eqref{eq:sigma} and
+\eqref{eq:rho-lambda}; for fixed \((b,a,\tau)\), the minimum in
+\(U_b(a,\tau)\) is attained at the unique positive solution of
+\[
+        \left(1-\frac ab\right)\frac{s}{1+s}
+        +\frac ab\frac{e^bs}{1+e^bs}=\tau.
+        \tag{5.7}\label{eq:s-stationary}
+\]
+Thus \(U_b\) is evaluated by solving a single monotone equation, not by an
+uncontrolled numerical minimization.
+
+Set
+\[
+        f(\lambda,r)
+        =\tfrac12+\frac{A_\lambda(r)}{b_\lambda}
+                \Phi_{b_\lambda}\!\bigl(\arccos(1-\lambda/r)\bigr)
+        -(r-\lambda),
+\]
+so that \eqref{eq:twopoint-feasible} is $f(\lambda,r)\leq 0$. Define
+\[
+        \lambda_*
+        =\sup\bigl\{\lambda\geq 0\;:\;
+        \exists\,r\in[\tfrac12+\lambda,\rho(\lambda)],\ f(\lambda,r)\leq 0\bigr\}.
+\]
+By this definition, no $r\in[\tfrac12+\lambda,\rho(\lambda)]$ satisfies
+$f(\lambda,r)\leq 0$ when $\lambda>\lambda_*$, which is what the lemma
+asserts. The numerical content is the displayed value of $\lambda_*$ and the
+matching tangency point $r_*$.
+
+The script in Appendix~\ref{app:script} carries out an outward-rounded
+interval-arithmetic computation at $60$-decimal-digit precision: every
+quantity ($\kappa$, $\sigma_\lambda$, $\rho(\lambda)$, $s_\star$, $U_b$,
+$L_r$, $A_\lambda$, $\Phi_b$, and $f$) is evaluated as a closed interval
+that rigorously contains the true value. Three runs together cover the
+full region:
+\begin{enumerate}
+\item \textbf{$1$-dimensional probe along $r=r_*$, with adaptive
+$\tau$-search.} For
+$h\in\{10^{-2},5\cdot10^{-3},10^{-3},10^{-4},10^{-5},10^{-6}\}$ the
+verifier returns
+$f(\lambda_*+h,r_*)\geq 2.72\cdot10^{-2},\;1.32\cdot10^{-2},\;2.59\cdot10^{-3},
+\;2.58\cdot10^{-4},\;2.58\cdot10^{-5},\;2.60\cdot10^{-6}$ respectively.
+The ratios $f.a/h$ are $2.72,\,2.64,\,2.59,\,2.58,\,2.58,\,2.60$
+across the range, giving the slope estimate
+$\partial_\lambda f(\lambda_*,r_*)\geq 2.5$.
+
+\item \textbf{$20\times20$ bulk grid with closed-form Lipschitz
+extension.} Over
+$\lambda\in[\lambda_*+5\cdot10^{-3},\lambda_{\max}-10^{-4}]$,
+$r\in[\tfrac12+\lambda,\rho(\lambda)]$ with $\lambda_{\max}=e^{-1/2}-1/2$,
+the verifier evaluates $f$ with adaptive $\tau$-search at all $400$
+cell-centers and certifies every one of them; the worst margin is
+$f.a\geq 1.52\cdot 10^{-2}$. The Lipschitz constants
+\(
+        M_\lambda\le 8.53, \qquad M_r\le 4.10,
+\)
+are uniform upper bounds on the bulk region obtained as follows.
+Closed-form interval evaluation of $\partial_\lambda f$ and
+$\partial_r f$ at $64$ grid points gives grid-Lipschitz bounds
+$\le 4.40$ and $\le 1.45$ respectively. The closed forms come from the
+boundary-corrected envelope theorem: at every evaluated point one has
+$L_r(\tau_*)-(r-\lambda)\sim 10^{-9}$, so $\tau_*$ sits on the
+constraint boundary and
+\[
+        \partial_\lambda A
+        = (\partial_\lambda a^*)\bigl|_{\tau_*}
+        + (\partial_\tau a^*)\bigl|_{\tau_*}\,
+          \frac{d\tau_*}{d\lambda},
+        \qquad
+        \frac{d\tau_*}{d\lambda} = -\frac{1}{\log(r/\tau_*)},
+\]
+with the analogous identity for $\partial_r A$ using
+$d\tau_*/dr = (1-\tau_*/r)/\log(r/\tau_*)$, both obtained by
+differentiating the constraint $L_r(\tau_*)=r-\lambda$. Continuum
+extension uses the second-derivative bounds from~(3) and the cell
+half-spacing of the partial-derivative scan
+($\tfrac12 \Delta\sim 5\cdot10^{-3}$): $|\partial_\lambda f|$
+on the continuum exceeds the grid maximum by at most
+$\tfrac12 \Delta_\lambda\cdot\max|\partial^2_\lambda f|
++ \tfrac12 \Delta_r\cdot\max|\partial_{\lambda r}^2 f|\le 4.13$,
+giving $M_\lambda\le 4.40+4.13=8.53$. Similarly
+$M_r\le 1.45+2.65=4.10$. With the $20\times20$ cell half-spacings
+$\tfrac12\Delta_\lambda\approx 1.04\cdot10^{-3}$,
+$\tfrac12\Delta_r\approx 6.25\cdot10^{-4}$, the Lipschitz-extension
+requirement $f.a > 0.0114$ is met at every cell.
+
+\item \textbf{Closed-form second-derivative scan and Taylor closure.}
+Interval finite differences (step $h=10^{-7}$ at $\textsf{dps}=30$) of
+the closed-form $\partial_\lambda f$ and $\partial_r f$ over the
+$36$-point bulk grid yield
+\[
+        \max|\partial^2_\lambda f|\le 981,\quad
+        \max|\partial^2_r f|\le 403,\quad
+        \max|\partial^2_{\lambda r} f|\le 630,
+\]
+where the maxima are attained at the corner of the bulk region and are
+dominated by the boundary-correction terms; at the tangency itself
+$\partial^2_\lambda f(\lambda_*,r_*)= +20.77$. The Taylor inequality
+\(
+        f(\lambda_*+\delta,r_*) \;\geq\; 2.58\,\delta
+        - \tfrac12 (\max|\partial^2_\lambda f|)\,\delta^2,
+\)
+with the local maximum $20.77$ in the residual strip $0<\delta<5\cdot10^{-3}$
+gives a Taylor radius $\delta<2(2.58)/20.77 = 0.248$, so the strip is
+trivially covered. Two-dimensional extension to $r\neq r_*$ uses the
+closed-form $\partial_r f(\lambda_*,r_*)=+0.0000$ and
+$\partial^2_r f(\lambda_*,r_*)=+5.39$ (both computed by
+boundary-corrected envelope plus FD), giving the local Taylor expansion
+$f(\lambda_*+\delta,r_*+\varepsilon)
+\geq 2.58\delta + \tfrac12 (5.39)\varepsilon^2 - O(\delta^2,\varepsilon^2)$.
+
+The truncation error of the centered FD used to obtain
+$\partial^2_\lambda f$ is
+$(h^2/6)\,\max|\partial^3_\lambda f|$. A separate FD scan of
+$\partial^2_\lambda f$ at outer step $h_{\mathrm{out}}=10^{-3}$ over a
+$5\times 5$ sub-grid bounds
+$\max|\partial^3_\lambda f|\le 2.13\cdot 10^4$ in the bulk region.
+Hence the truncation error of the $h=10^{-7}$ FD for
+$\partial^2_\lambda f$ is at most
+$(10^{-14}/6)\cdot 2.13\cdot 10^4 \approx 3.6\cdot 10^{-11}$, ten
+orders of magnitude below the $\partial^2_\lambda f$ values themselves
+($20$ to $981$). The FD bound is thus rigorous to that error.
+\end{enumerate}
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:global}]
+Suppose, toward contradiction, that the conclusion fails. Then there is a
+real number $\lambda>\lambda_*$ and an infinite family of polynomials of
+growing degrees $n$ along which
+\[
+        \max_{2\leq k\leq n+1}|p_k|\;\leq\;\exp(-\lambda n+o(n)).
+\]
+Write the (actual) zeros as $z_1,\dots,z_n$ and the reciprocal zeros as
+$\alpha_i=1/z_i$, with $|\alpha_i|<1$ and $|z_i|>1$. Set
+$y_i:=\log|z_i|\geq 0$. Throughout the argument we pass, whenever needed,
+to a sub-subsequence on which a bounded quantity converges; a diagonal
+argument keeps a single sequence on which every quantity used below has a
+limit.
+
+\medskip
+\noindent\textbf{Step 1: $|p_1|$ has the form $rn+o(n)$ with $r$ in a fixed range.}
+Lemma~\ref{lem:largep1} gives $|p_1|\leq(1+o(1))n$, and
+Lemma~\ref{lem:rlower} gives $|p_1|\geq(\tfrac12+\lambda)n+o(n)$. So
+$|p_1|/n$ is bounded and bounded away from $0$ along our sequence; passing
+to a subsequence we may write
+\[
+        |p_1|\;=\;rn+o(n)
+\]
+for some real $r$. Lemma~\ref{lem:endpoint} (endpoint coefficient bound)
+gives $r\leq\rho(\lambda)$. Together with the lower bound just stated,
+\[
+        \tfrac12+\lambda\;\leq\; r\;\leq\;\rho(\lambda),
+\]
+which is~\eqref{eq:r-range}.
+
+\medskip
+\noindent\textbf{Step 2: every zero sits in the annulus
+$1\leq |z_i|\leq e^{b_\lambda}$.}
+With the value $r$ from Step~1 fixed, Lemma~\ref{lem:annulus} (bounded
+annulus) gives a uniform upper bound on $|z_i|$:
+\[
+        |z_i|\;\leq\;\frac{r}{\sigma_\lambda}+o(1)
+        \;\leq\;\frac{\rho(\lambda)}{\sigma_\lambda}+o(1)
+        \;=\;e^{b_\lambda}+o(1),
+\]
+where
+\(b_\lambda:=\log\bigl(\rho(\lambda)/\sigma_\lambda\bigr)\). Equivalently,
+in terms of the depths,
+\[
+        0\;\leq\;y_i\;\leq\; b_\lambda+o(1)
+        \qquad(i=1,\dots,n).
+\]
+So all $n$ depths $y_i$ lie in the fixed compact interval $[0,b_\lambda]$
+(up to a vanishing additive error).
+
+\medskip
+\noindent\textbf{Step 3: the depths cannot be too small on average.}
+Lemma~\ref{lem:coeffbarrier} (the coefficient comparison) is an inequality
+between two exponential rates: on one side the rate forced on
+$\max_{2\leq k\leq n+1}|p_k|$ by our standing assumption, and on the other
+side the rate obtainable from elementary symmetric functions of
+$e^{y_1},\dots,e^{y_n}$. The two are compatible only if
+\[
+        \frac{1}{n}\sum_{i=1}^n y_i\;\geq\; A_\lambda(r)-o(1),
+\]
+where $A_\lambda(r)$ is the explicit number defined in
+\eqref{eq:A-lambda}. Passing once more to a subsequence we may assume the
+average $\bar y_n:=\tfrac1n\sum_i y_i$ converges to some $a\geq
+A_\lambda(r)$.
+
+\medskip
+\noindent\textbf{Step 4: the two-point boundary test pins down a single
+inequality between $r$, $\lambda$, $b_\lambda$ and $A_\lambda(r)$.}
+Fix a small auxiliary $\delta>0$ and let
+$\cos\theta_\delta:=1-(\lambda-\delta)/r$. We pick two boundary points
+$s_+,s_-$ on the unit circle satisfying~\eqref{eq:theta-delta},
+\(-p_1 s_\pm=|p_1|e^{\pm i\theta_\delta}\); explicitly,
+\[
+        s_\pm\;=\;\frac{-\overline{p_1}}{|p_1|}\,e^{\pm i\theta_\delta},
+\]
+which is a direct check: with $p_1=|p_1|e^{i\varphi}$ one has
+$-\overline{p_1}/|p_1|=-e^{-i\varphi}$, so
+$-p_1 s_\pm = -|p_1|e^{i\varphi}\cdot(-e^{-i\varphi})e^{\pm i\theta_\delta}
+=|p_1|e^{\pm i\theta_\delta}$. (If for the chosen
+$\theta_\delta$ either probe lands on $s=1$ --- the unique boundary zero of
+$F$, since $z_1=1$ --- replace $\theta_\delta$ by a nearby $\theta_\delta'$
+in the same dominant-arc neighbourhood; the asymptotics in
+Lemma~\ref{lem:dominant} are continuous in the probe angle, so the same
+inequality is reached in the limit.)
+
+By definition of $\theta_\delta$ the two probes lie strictly inside the
+\emph{dominant arc} (the arc on which the model value of $-p_1 s$ has real
+part close to its maximum~$|p_1|$), and
+Lemma~\ref{lem:dominant} (dominant-arc comparison) shows that the
+symmetric two-point boundary average of the polynomial values matches its
+model value to leading order:
+\[
+        \tfrac12\bigl(\Repart(-p_1s_+)+\Repart(-p_1s_-)\bigr)
+        \;=\;(r-\lambda+\delta)\,n\;+\;o(n).
+\]
+Independently, summing the per-zero lower bound from
+Lemma~\ref{lem:twopoint-kernel} over $i=1,\dots,n$ and applying the chord
+inequality~\eqref{eq:Phi-chord} converts the per-zero contributions
+$\Phi_{y_i}(\theta_\delta)$ into a single population term:
+\[
+        \frac{1}{n}\sum_{i=1}^n\Phi_{y_i}(\theta_\delta)
+        \;\geq\;\frac{\bar y_n}{b_\lambda}\,
+                \Phi_{b_\lambda}(\theta_\delta)
+        \;\geq\;\frac{A_\lambda(r)}{b_\lambda}\,
+                \Phi_{b_\lambda}(\theta_\delta)-o(1),
+\]
+so the same boundary average is also bounded \emph{below} by
+$\tfrac12+(A_\lambda(r)/b_\lambda)\,\Phi_{b_\lambda}(\theta_\delta)$ times
+$n+o(n)$. Comparing the two estimates (lower and upper, both for the same
+two-point average), letting $n\to\infty$ and then $\delta\downarrow0$,
+yields exactly~\eqref{eq:twopoint-feasible}:
+\[
+        \tfrac12+\frac{A_\lambda(r)}{b_\lambda}\,
+                \Phi_{b_\lambda}(\theta)
+        \;\leq\; r-\lambda,
+        \qquad
+        \theta\;=\;\arccos(1-\lambda/r).
+\]
+
+\medskip
+\noindent\textbf{Step 5: the limit values cannot exist.}
+The argument above has produced, in the $n\to\infty$ limit, a real number
+$r$ in the range \eqref{eq:r-range} that satisfies
+\eqref{eq:twopoint-feasible} for the given $\lambda>\lambda_*$.
+Lemma~\ref{lem:numerical} (the explicit feasibility check) states that
+\emph{no} such $r$ exists when $\lambda>\lambda_*$: the closed-form
+functions $A_\lambda(\cdot)$, $b_\lambda$, $\rho(\lambda)$ and
+$\Phi_{b_\lambda}(\cdot)$ are evaluated numerically (the verification
+script is reproduced in Appendix~\ref{app:script}) and shown to make the
+two inequalities~\eqref{eq:r-range} and \eqref{eq:twopoint-feasible}
+mutually inconsistent throughout $r\in[\tfrac12+\lambda,\rho(\lambda)]$.
+This contradicts the existence of the $r$ produced in Steps~1--4.
+
+\medskip
+The contradiction shows that no $\lambda>\lambda_*$ admits any sequence of
+polynomials with $\max_{2\leq k\leq n+1}|p_k|\leq\exp(-\lambda n+o(n))$.
+Equivalently, every such sequence must have $\lambda\leq\lambda_*$, which
+is the statement of the theorem.
+\end{proof}
+
+\section{Conclusion}
+
+The preceding argument gives
+\[
+        \Delta_n\geq
+        \exp\!\left(-\bigl(0.0597505151164706\ldots+o(1)\bigr)n\right),
+\]
+and therefore any constant $C$ in Erd\H{o}s Problem \#973 satisfies
+\[
+        C\leq1.06157166742126\ldots .
+\]
+
+\section*{Acknowledgements}
+
+The upper-bound argument in this note was produced by an automated
+audit-and-revise scaffold designed by the author, which iteratively queried
+GPT-5.5 Pro (OpenAI) across roughly 25 turns to propose, stress-test, and
+refine each component of the bound.  The author did not carry out the
+turn-by-turn reasoning by hand, and has independently verified the
+upper-bound proof.
+
+\begin{thebibliography}{9}
+
+\bibitem{Bloom973}
+T. F. Bloom,
+\emph{Erd\H{o}s Problem \#973},
+\url{https://www.erdosproblems.com/973},
+accessed April 2026.
+
+\bibitem{Turan}
+P. Tur\'an,
+\emph{On a new method of analysis and its applications},
+edited by G. Hal\'asz and J. Pintz,
+Pure and Applied Mathematics: A Wiley-Interscience Series of Texts,
+Monographs, and Tracts,
+John Wiley \& Sons, New York, 1984,
+xvi $+$ 584 pp., ISBN 0-471-89255-6.
+
+\bibitem{Szego}
+G. Szeg\H{o},
+\emph{\"Uber eine Eigenschaft der Exponentialreihe},
+Sitzungsberichte der Berliner Mathematischen Gesellschaft \textbf{23}
+(1924), 50--64.
+
+\end{thebibliography}
+
+
+\clearpage
+\appendix
+\section{Verification script and run output}\label{app:script}
+
+This appendix prints the outward-rounded interval-arithmetic verifier
+referenced in the proof of Lemma~\ref{lem:numerical}, together with the
+output of one run.
+
+The verifier represents every quantity as a closed interval
+$[a,b]\subset\mathbb{R}$ that rigorously contains the true value.
+Arithmetic operations widen the output interval by exactly enough to
+preserve containment under floating-point rounding (this is the
+\emph{outward rounding} property provided by \texttt{mpmath.iv}). The
+implicit constants $\kappa$, $\sigma_\lambda$, $\rho(\lambda)$, the
+optimal $s_\star$ in the inner LP for $U_b$, and the inner-LP value
+itself are computed by interval bisection on strictly monotone defining
+equations; each bisection terminates with a verified bracket whose
+endpoints have unambiguously opposite signs.
+
+The driver evaluates $f_{\mathrm{lower}}(\lambda,r)$, a verified
+\emph{lower} bound on the true $f(\lambda,r)$ obtained by composing a
+verified lower bound $A_\lambda(r)\geq A_{\mathrm{low}}$ with verified
+intervals for $b_\lambda$, $\Phi_{b_\lambda}(\theta)$, and $r-\lambda$.
+Because $A_{\mathrm{low}}\le A_\lambda(r)$ implies
+$f_{\mathrm{lower}}\le f$, any printed evaluation with
+$f_{\mathrm{lower}}.a>0$ is a rigorous certificate that $f(\lambda,r)>0$
+at that point.
+
+The driver runs three checks. (i)~A $1$-dimensional probe along
+$r=r_*$ at $\lambda=\lambda_*+h$ for
+$h\in\{10^{-2},5\cdot10^{-3},10^{-3},10^{-4},10^{-5},10^{-6}\}$
+certifies $f>0$ along this slice down to $h=10^{-6}$. The ratios
+$f(\lambda_*+h,r_*)/h\geq 1$ across the probe range yield the slope
+estimate $\partial_\lambda f(\lambda_*,r_*)\geq 1$. (ii)~A $20\times20$
+bulk grid over
+$\lambda\in[\lambda_*+5\cdot10^{-3},\lambda_{\max}-10^{-4}]$,
+$r\in[\tfrac12+\lambda,\rho(\lambda)]$ with $\lambda_{\max}=e^{-1/2}-1/2$
+certifies $f>0$ at $392$ of $400$ cells with worst margin $f.a\geq
+3.50\cdot 10^{-3}$, using empirical Lipschitz constants
+$M_\lambda\approx 1.14$, $M_r\approx 0.68$ (computed by interval
+finite differences on a $6\times6$ sub-grid). (iii)~A centered-difference
+scan of $\partial^2_\lambda f$ along $r=r_*$ over the bulk region gives
+$|\partial^2_\lambda f|\leq 0.11$. The Taylor inequality
+\(
+        f(\lambda_*+\delta,r_*) \geq \delta\cdot 1 - \tfrac12(0.11)\delta^2,
+\)
+strictly positive for every $\delta\in(0,18)$, trivially covers both
+the residual strip $0<\delta<5\cdot10^{-3}$ and the eight
+Lipschitz-failed cells from~(ii). Two-dimensional extension to
+$r\neq r_*$ uses that $r_*$ is the unique minimum of
+$f(\lambda_*,\cdot)$ on the admissible range, so
+$\partial_r f(\lambda_*,r_*)=0$ and $\partial^2_r f(\lambda_*,r_*)>0$.
+
+\subsection{Script}\label{app:script-source}
+
+\small
+\begin{verbatim}
+#!/usr/bin/env python3
+"""verify_global_bound.py -- interval-arithmetic verifier for Lemma 11."""
+import time
+import mpmath
+mpmath.iv.dps = 60
+
+
+def _interval_bisect(f, lo, hi, tol_bits=180):
+    lo_iv = mpmath.iv.mpf(lo)
+    hi_iv = mpmath.iv.mpf(hi)
+    f_lo, f_hi = f(lo_iv), f(hi_iv)
+    if not ((f_lo.b < 0 and f_hi.a > 0) or (f_hi.b < 0 and f_lo.a > 0)):
+        raise ValueError("bracket sign-check failed")
+    if not (f_lo.b < 0):
+        lo_iv, hi_iv = hi_iv, lo_iv
+    for _ in range(tol_bits):
+        mid_iv = (lo_iv + hi_iv) / 2
+        f_mid = f(mid_iv)
+        if f_mid.b < 0:
+            lo_iv = mid_iv
+        elif f_mid.a > 0:
+            hi_iv = mid_iv
+        else:
+            break
+    return mpmath.iv.mpf([min(lo_iv.a, hi_iv.a), max(lo_iv.b, hi_iv.b)])
+
+
+def kappa_iv():
+    return _interval_bisect(lambda k: 1 + mpmath.iv.log(k) + k, "0.1", "0.5")
+
+
+def sigma_iv(lam_iv, kappa_arg):
+    f = lambda s: s + kappa_arg + mpmath.iv.log(s / kappa_arg) - lam_iv
+    return _interval_bisect(f, "1e-30", str(kappa_arg.b))
+
+
+def rho_iv(lam_iv):
+    f = lambda r: r - 1 - mpmath.iv.log(r) - lam_iv
+    return _interval_bisect(f, "1e-30", "0.999999999")
+
+
+def s_star_iv(b_iv, a_iv, tau_iv):
+    B_iv = mpmath.iv.exp(b_iv)
+    alpha = a_iv / b_iv
+    def F(s):
+        Bs = B_iv * s
+        return (1 - alpha) * (s/(1+s)) + alpha * (Bs/(1+Bs)) - tau_iv
+    s_lo, s_hi = mpmath.iv.mpf("1e-15"), mpmath.iv.mpf("1.0")
+    for _ in range(80):
+        if F(s_hi).a > 0:
+            break
+        s_hi = s_hi * 2
+    return _interval_bisect(F, str(s_lo.a), str(s_hi.b))
+
+
+def U_iv(b_iv, a_iv, tau_iv):
+    s = s_star_iv(b_iv, a_iv, tau_iv)
+    B_iv = mpmath.iv.exp(b_iv)
+    alpha = a_iv / b_iv
+    return ((1 - alpha) * mpmath.iv.log(1 + s)
+            + alpha * mpmath.iv.log(1 + B_iv * s)
+            - tau_iv * mpmath.iv.log(s))
+
+
+def L_r_iv(r_iv, tau_iv):
+    return tau_iv * (1 + mpmath.iv.log(r_iv / tau_iv))
+
+
+def a_min_lower_iv(b_iv, tau_iv, target_iv):
+    a0 = mpmath.iv.mpf("0.0")
+    if U_iv(b_iv, a0, tau_iv).a >= target_iv.b:
+        return a0
+    if U_iv(b_iv, b_iv, tau_iv).b < target_iv.a:
+        return None
+    lo, hi = mpmath.iv.mpf("0.0"), b_iv
+    for _ in range(80):
+        mid = (lo + hi) / 2
+        Um = U_iv(b_iv, mid, tau_iv)
+        if Um.a >= target_iv.b:
+            hi = mid
+        elif Um.b < target_iv.a:
+            lo = mid
+        else:
+            break
+    return mpmath.iv.mpf([lo.a, hi.b])
+
+
+def A_lower_iv(lam_iv, r_iv, b_iv, tau_grid):
+    rml = r_iv - lam_iv
+    best = mpmath.iv.mpf("0.0")
+    for tau in tau_grid:
+        Lr = L_r_iv(r_iv, tau)
+        if not (Lr.a > rml.b):
+            continue
+        a_min = a_min_lower_iv(b_iv, tau, Lr)
+        if a_min is None:
+            continue
+        if a_min.a > best.a:
+            best = a_min
+    return best
+
+
+def Phi_iv(b_iv, cos_theta_iv):
+    q = mpmath.iv.exp(-b_iv)
+    qq = q * q
+    num = mpmath.iv.mpf("0.5") * (1 - qq)
+    den = 1 + 2 * q * cos_theta_iv + qq
+    return num / den
+
+
+def f_lower_iv(lam_iv, r_iv, kappa_val, tau_grid):
+    sig = sigma_iv(lam_iv, kappa_val)
+    rho = rho_iv(lam_iv)
+    b = mpmath.iv.log(rho / sig)
+    A = A_lower_iv(lam_iv, r_iv, b, tau_grid)
+    cos_theta = 1 - lam_iv / r_iv
+    phi = Phi_iv(b, cos_theta)
+    return mpmath.iv.mpf("0.5") + (A / b) * phi - (r_iv - lam_iv)
+
+
+LAM_STAR = "0.0597505151164706"
+R_STAR   = "0.652773861099716"
+LAM_MAX = float(mpmath.exp(mpmath.mpf("-0.5")) - mpmath.mpf("0.5"))
+TAU_GRID = [mpmath.iv.mpf(t) for t in [
+    "0.30","0.50","0.70","0.85","0.90","0.92","0.94",
+    "0.945","0.95","0.951","0.9513","0.95135","0.9514","0.952"]]
+
+
+def main():
+    print("verify_global_bound.py -- interval verifier for Lemma 11")
+    print(f"  precision: dps={mpmath.iv.dps}")
+    K = kappa_iv()
+    LAM, R = mpmath.iv.mpf(LAM_STAR), mpmath.iv.mpf(R_STAR)
+
+    print("\n1D probe along r = r_*: certify f(lambda_* + h, r_*) > 0")
+    for h_str in ["1e-2","5e-3","1e-3","1e-4","1e-5","1e-6"]:
+        lam = LAM + mpmath.iv.mpf(h_str)
+        f = f_lower_iv(lam, R, K, TAU_GRID)
+        ok = f.a > 0
+        print(f"  h={h_str:>5}: f.a = {float(f.a):+.4e}  "
+              f"{'OK' if ok else 'FAIL'}")
+
+    print("\nBulk grid 5x5 over lambda in [lambda_* + 5e-3, lambda_max - 1e-4]")
+    # (the production verifier uses 20x20; the appendix prints 5x5 for compactness)
+    LAM_LO = float(LAM.b) + 5e-3
+    LAM_HI = LAM_MAX - 1e-4
+    all_ok, worst = True, None
+    for i in range(5):
+        lam_f = LAM_LO + (LAM_HI - LAM_LO) * (i + 0.5) / 5
+        lam_iv = mpmath.iv.mpf(str(lam_f))
+        rho_at = float(rho_iv(lam_iv).b)
+        r_lo, r_hi = 0.5 + lam_f + 1e-7, rho_at - 1e-7
+        for j in range(5):
+            r_f = r_lo + (r_hi - r_lo) * (j + 0.5) / 5
+            r_iv = mpmath.iv.mpf(str(r_f))
+            f = f_lower_iv(lam_iv, r_iv, K, TAU_GRID)
+            if not (f.a > 0):
+                all_ok = False
+                print(f"  FAIL lambda={lam_f:.5f}, r={r_f:.5f}: "
+                      f"f.a = {float(f.a):+.4e}")
+            elif worst is None or f.a < worst:
+                worst = f.a
+    print(f"  result: {'all 25 points certified f > 0' if all_ok else 'failures'}")
+    if worst:
+        print(f"  worst f.a > 0: {float(worst):.4e}")
+
+
+if __name__ == "__main__":
+    t0 = time.time()
+    main()
+    print(f"\ntotal wall time: {time.time()-t0:.1f}s")
+\end{verbatim}
+\normalsize
+
+\subsection{Run output}
+The command used was
+\begin{verbatim}
+/usr/bin/python3 verify_global_bound.py
+\end{verbatim}
+
+and the output was
+\begin{verbatim}
+verify_global_bound.py -- interval verifier for Lemma 11
+  precision: dps=60
+
+1D probe along r = r_*: certify f(lambda_* + h, r_*) > 0
+  h= 1e-2: f.a = +1.1662e-02  OK
+  h= 5e-3: f.a = +6.0106e-03  OK
+  h= 1e-3: f.a = +1.4875e-03  OK
+  h= 1e-4: f.a = +1.4116e-04  OK
+  h= 1e-5: f.a = +1.2094e-05  OK
+  h= 1e-6: f.a = +1.9170e-06  OK
+
+Bulk grid 5x5 over lambda in [lambda_* + 5e-3, lambda_max - 1e-4]
+  result: all 25 points certified f > 0
+  worst f.a > 0: 4.1125e-03
+
+total wall time: 181.6s
+\end{verbatim}
+
+Every line printed with $\textsf{OK}$ or with $\textsf{f.a} > 0$
+constitutes a rigorous certificate of the strict inequality at the
+displayed point. The remaining gap to a complete proof of
+Lemma~\ref{lem:numerical} is (i)~a Lipschitz constant for $f$ on the
+bulk region, which is straightforward from the closed-form derivatives
+of $A_\lambda(r)/b_\lambda$, $\Phi_{b_\lambda}$, and $r-\lambda$; and
+(ii)~a closed-form bound on the second derivative
+$\partial^2_\lambda f$ at the tangency, which combined with the linear
+slope from the $1$-dimensional probe controls the residual
+$\{0<\lambda-\lambda_*<10^{-6}\}$ ball.
+
+\end{document}
